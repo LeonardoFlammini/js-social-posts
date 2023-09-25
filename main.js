@@ -1,3 +1,5 @@
+/* ---------- ARRAY ----------- */
+
 const posts = [
     {
         "id": 1,
@@ -55,3 +57,110 @@ const posts = [
         "created": "2021-03-05"
     }
 ];
+
+/* ---------- CONST ----------- */
+
+const container = document.getElementById("container");
+const likeBtns = [];
+
+
+/* ---------- MAIN ----------- */
+reset();
+printPosts();
+getButtons();
+
+
+
+
+/* ---------- FUNCTIONS ----------- */
+
+function reset() {
+    container.innerHTML = "";
+}
+
+function printPosts ()
+{
+    posts.forEach((post) => {
+        const {content,media,author,likes,created,id} = post;
+        const {name,image} = author;
+        container.innerHTML += `
+
+    <div class="post">
+
+        <div class="post__header">
+
+            <div class="post-meta">     
+
+                <div class="post-meta__icon">
+
+                    <img class="profile-pic" src=${image} alt=${name}>                    
+                </div>
+
+                <div class="post-meta__data">
+                    <div class="post-meta__author">${name}</div>
+                    <div class="post-meta__time"> ${created} </div>
+                </div>                    
+
+            </div>
+
+        </div>
+
+        <div class="post__text">${content}</div>
+
+        <div class="post__image">
+
+            <img src=${media} alt="">
+
+        </div>
+
+
+        <!-- LIKES -->
+        <div class="post__footer">
+
+            <div class="likes js-likes">
+
+                <div class="likes__cta">
+
+                    <button class="like-button  js-like-button" id="button-${id}">
+                        <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                        <span class="like-button__label">Mi Piace</span>
+                    </button>
+
+                </div>
+                <div class="likes__counter" id="counter-${id}">
+                    Piace a <b id="like-counter-1" class="js-likes-counter">${likes}</b> persone
+                </div>
+            </div> 
+        </div>            
+    </div>
+
+        `
+    })
+    
+    
+}
+
+
+function getButtons()
+{
+    posts.forEach((post) =>{
+        const btn = document.getElementById(`button-${post.id}`);
+        btn.addEventListener('click', like);
+        likeBtns.push(btn);
+    });
+    console.log(likeBtns);
+    
+    
+
+}
+
+
+
+function like() 
+{
+    this.style.color = "blue";
+    // likeCounter++;
+}
+
+// FIXME: creare i bottoni e i likes come elementi
+
